@@ -42,9 +42,12 @@
 
   /* ---------- THE FORMULAS: change these to change how HP and SP are worked out ---------- */
   function calc(){
-    var en=S.stats.EN, ma=S.stats.MA, lv=S.level, g=S.social[GUTS], t=S.social[HPBOOST], y=S.social[SPBOOST], b=S.social[GYMBONUS]||0;
-    var hg=Math.floor(en/5)*lv;                          // HP growth from Endurance
-    var sg=Math.floor(Math.floor(ma/5)*lv/2);            // SP growth from Magic (half level, rounded down)
+   var en=S.stats.EN, ma=S.stats.MA, lv=S.level,
+    g=S.social[GUTS]||0, t=S.social[HPBOOST]||0,
+    y=S.social[SPBOOST]||0, b=S.social[GYMBONUS]||0;
+     
+   var hg=Math.floor(en/5)*lv;                          // HP growth from Endurance
+   var sg=Math.floor(Math.floor(ma/5)*lv/2);            // SP growth from Magic (half level, rounded down)
     return { hg:hg, sg:sg, g:g, t:t, y:y, b:b,
              hp: Math.floor((S.baseHP + en + hg + b + g*C.rules.gutsHPPerRank) *( t/100 +1)),
              sp: Math.floor((S.baseSP + ma + sg) *(y/100 +1) ) 
