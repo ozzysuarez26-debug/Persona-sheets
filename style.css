@@ -45,15 +45,15 @@ body{margin:0;background:var(--bg);color:var(--ink);font:22px/1.3 system-ui,-app
 #sheet input[type=number]{-moz-appearance:textfield;appearance:textfield}
 #sheet input::-webkit-outer-spin-button,#sheet input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 #sheet ::placeholder{color:rgba(40,30,20,.35)}
-.t-line input{text-align:center;font-size:var(--size-line);font-weight:700;letter-spacing:.01em}
-.t-box input{font-size:var(--size-box);font-weight:700;text-align:center}
+#sheet .t-line input{text-align:center;font-size:var(--size-line);font-weight:700;letter-spacing:.01em}
+#sheet .t-box input{font-size:var(--size-box);font-weight:700;text-align:center}
 .hpbox{display:flex;align-items:center;font-size:var(--size-vitals);font-weight:700}
-.hpbox input{width:64px;text-align:right;font-size:var(--size-vitals);font-weight:700;padding:0 2px}
+#sheet .hpbox input{width:64px;text-align:right;font-size:var(--size-vitals);font-weight:700;padding:0 2px}
 .hpbox .sl{padding:0 4px;opacity:.7}
 .hpbox .mx{min-width:46px;text-align:left}
-.sig input{font-family:var(--signature-font);font-size:var(--size-signature);text-align:center;font-weight:600;line-height:1}
-.aff-btn{cursor:pointer;font-weight:700;font-size:var(--size-aff);text-align:center;letter-spacing:-.02em}
-.aff-btn:hover{background:rgba(255,255,255,.4)!important}
+#sheet .sig input{font-family:var(--signature-font);font-size:var(--size-signature);text-align:center;font-weight:600;line-height:1}
+#sheet button.cell.aff-btn{cursor:pointer;font-weight:700;font-size:var(--size-aff);text-align:center;letter-spacing:-.02em}
+#sheet button.cell.aff-btn:hover{background:rgba(255,255,255,.4)!important}
 
 #sheet button.cell{cursor:pointer}
 .bar{display:flex;align-items:center;gap:1px;padding:0 1px}
@@ -71,9 +71,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font:22px/1.3 system-ui,-app
 #visage.has .rm{display:block}
 #visage.has .ph{display:none}
 
-.sk textarea{resize:none;overflow:hidden;font-size:var(--size-skill);line-height:1.12;padding:3px 5px;display:block}
-.sk textarea.nm{font-size:var(--size-skill-name);font-weight:700}
-.sk textarea.cs{text-align:center;font-weight:700;font-size:var(--size-skill-name)}
+#sheet .sk textarea{resize:none;overflow:hidden;font-size:var(--size-skill);line-height:1.12;padding:3px 5px;display:block}
+#sheet .sk textarea.nm{font-size:var(--size-skill-name);font-weight:700}
+#sheet .sk textarea.cs{text-align:center;font-weight:700;font-size:var(--size-skill-name)}
 body.debug .f{outline:1px dashed rgba(255,0,0,.8);background:rgba(255,0,0,.08)}
 
 /* ---------- controls below the sheet ---------- */
