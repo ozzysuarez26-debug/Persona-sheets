@@ -50,7 +50,10 @@ window.SHEET_CONFIG = {
     player:    { x: 660, y: 114, w: 213, h: 26, r: -2.1 },
 
     // The picture frame is slanted, so it is placed by its three corners instead.
-    // tl = top-left, tr = top-right, bl = bottom-left   (the 4th corner is worked out for you)
+    // br = bottom-right. With all four corners the picture is fitted exactly, even if the frame is not a perfect parallelogram.
+    visage: { tl: [803, 252], tr: [1037, 233], bl: [781, 552], br: [1033, 533] }
+  },
+     
     visage: { tl: [803, 252], tr: [1037, 233], bl: [781, 552] }
   },
 
