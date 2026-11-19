@@ -15,8 +15,8 @@
   --size-signature: 24px;
   --size-aff: 26px;         /* affinity letters (Wk, Rs ...) */
   --size-stat: 30px;        /* the number on each stat bar */
-  --size-skill: 17px;       /* skill effect and description */
-  --size-skill-name: 21px;  /* skill name and cost */
+  --size-skill: 15px;       /* skill effect and description */
+  --size-skill-name: 20px;  /* skill name and cost */
 }
 
 /* ---------- 2. CONTROLS BELOW THE SHEET (light and dark themes) ---------- */
