@@ -8,7 +8,7 @@
 :root{
   --sheet-font: "Courier Prime","Courier New",monospace;   /* font for everything written on the sheet */
   --signature-font: "Caveat","Brush Script MT",cursive;    /* font for the signature box */
-  --sheet-ink: #16130f;                                    /* text colour on the sheet */
+  --sheet-ink: #16130FB2;                                    /* text colour on the sheet */
   --size-line: 19px;        /* arcana, persona name, player name */
   --size-box: 23px;         /* level, EXP boxes, AC */
   --size-vitals: 24px;      /* HP and SP numbers */
