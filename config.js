@@ -38,16 +38,16 @@ window.SHEET_CONFIG = {
 
   /* ---------- header fields ---------- */
   positions: {
-    arcana:    { x: 66,  y: 74,  w: 148, h: 26, r: -1.6 },
+    arcana:    { x: 66,  y: 74,  w: 153, h: 26, r: -1.6 },
     signature: { x: 70,  y: 147, w: 92,  h: 56, r: -2 },
-    persona:   { x: 262, y: 67,  w: 206, h: 27, r: -1.4 },
+    persona:   { x: 262, y: 69,  w: 206, h: 27, r: -1.4 },
     hp:        { x: 547, y: 75,  w: 136, h: 30, r: -1.8 },   // "current / max" readout
     sp:        { x: 735, y: 69,  w: 136, h: 28, r: -2 },
-    level:     { x: 212, y: 158, w: 42,  h: 26, r: -0.6 },
-    exp:       { x: 277, y: 150, w: 120, h: 29, r: -2.8 },     // current EXP box
-    expNext:   { x: 447, y: 142, w: 126, h: 28, r: -2.8 },     // EXP needed for next level
+    level:     { x: 212, y: 158, w: 42,  h: 26, r: -0.8 },
+    exp:       { x: 277, y: 152, w: 120, h: 29, r: -2.7 },     // current EXP box
+    expNext:   { x: 447, y: 145, w: 126, h: 28, r: -2.7 },     // EXP needed for next level
     ac:        { x: 603, y: 140, w: 36,  h: 28, r: 0 },      // Guard / AC hexagon
-    player:    { x: 660, y: 112, w: 213, h: 26, r: -2.1 },
+    player:    { x: 660, y: 114, w: 213, h: 26, r: -2.1 },
 
     // The picture frame is slanted, so it is placed by its three corners instead.
     // tl = top-left, tr = top-right, bl = bottom-left   (the 4th corner is worked out for you)
@@ -66,16 +66,16 @@ window.SHEET_CONFIG = {
   /* ---------- the affinity boxes under the icons (click a box to cycle) ---------- */
   affinityBoxSize: { w: 58, h: 42 },
   affinityBoxes: [
-    { key: "phys",  label: "Physical", x: 74,  y: 325, r: -8 },
-    { key: "gun",   label: "Gun",      x: 150, y: 318, r: -8 },
-    { key: "fire",  label: "Fire",     x: 241, y: 309, r: -8 },
-    { key: "ice",   label: "Ice",      x: 304, y: 302, r: -8 },
-    { key: "elec",  label: "Electric", x: 371, y: 296, r: -8 },
-    { key: "wind",  label: "Wind",     x: 435, y: 289, r: -8 },
-    { key: "psy",   label: "Psychic",  x: 502, y: 283, r: -8 },
-    { key: "nuke",  label: "Nuclear",  x: 564, y: 277, r: -8 },
-    { key: "bless", label: "Bless",    x: 632, y: 270, r: -8 },
-    { key: "curse", label: "Curse",    x: 697, y: 263, r: -8 }
+    { key: "phys",  label: "Physical", x: 74,  y: 327, r: -8 },
+    { key: "gun",   label: "Gun",      x: 150, y: 320, r: -8 },
+    { key: "fire",  label: "Fire",     x: 241, y: 311, r: -8 },
+    { key: "ice",   label: "Ice",      x: 304, y: 305, r: -8 },
+    { key: "elec",  label: "Electric", x: 371, y: 299, r: -8 },
+    { key: "wind",  label: "Wind",     x: 435, y: 292, r: -8 },
+    { key: "psy",   label: "Psychic",  x: 502, y: 286, r: -8 },
+    { key: "nuke",  label: "Nuclear",  x: 564, y: 280, r: -8 },
+    { key: "bless", label: "Bless",    x: 632, y: 273, r: -8 },
+    { key: "curse", label: "Curse",    x: 697, y: 266, r: -8 }
   ],
   // What clicking a box cycles through. The first one is "empty". Edit codes, names and colours freely.
   affinityStates: [
