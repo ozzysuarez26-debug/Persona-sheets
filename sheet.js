@@ -65,6 +65,24 @@
   }
   function say(t){ $('msg').textContent=t; }
 
+  /* ---------- fit a rectangle (w x h) onto four corner points: tl, tr, bl, br ---------- */
+  function quadMatrix(w,h,pts){
+    var src=[[0,0],[w,0],[0,h],[w,h]], A=[], B=[];
+    for(var i=0;i<4;i++){
+      var x=src[i][0], y=src[i][1], X=pts[i][0], Y=pts[i][1];
+      A.push([x,y,1,0,0,0,-x*X,-y*X]); B.push(X);
+      A.push([0,0,0,x,y,1,-x*Y,-y*Y]); B.push(Y);
+    }
+    for(var c=0;c<8;c++){                       // Gaussian elimination
+      var m=c; for(var r=c+1;r<8;r++) if(Math.abs(A[r][c])>Math.abs(A[m][c])) m=r;
+      var t=A[c]; A[c]=A[m]; A[m]=t; var tb=B[c]; B[c]=B[m]; B[m]=tb;
+      for(var r2=c+1;r2<8;r2++){ var f=A[r2][c]/A[c][c]; for(var k=c;k<8;k++) A[r2][k]-=f*A[c][k]; B[r2]-=f*B[c]; }
+    }
+    var v=[]; for(var r3=7;r3>=0;r3--){ var sum=B[r3]; for(var k2=r3+1;k2<8;k2++) sum-=A[r3][k2]*v[k2]; v[r3]=sum/A[r3][r3]; }
+    // v = a,b,c,d,e,f,g,h  ->  CSS matrix3d (column-major)
+    return [v[0],v[3],0,v[6], v[1],v[4],0,v[7], 0,0,1,0, v[2],v[5],0,1];
+  }
+
   /* ---------- place fields from config.positions ---------- */
   function place(el,p){
     el.style.left=p.x+'px'; el.style.top=p.y+'px'; el.style.width=p.w+'px'; el.style.height=p.h+'px';
@@ -72,7 +90,12 @@
   }
   document.querySelectorAll('[data-pos]').forEach(function(el){
     var p=C.positions[el.getAttribute('data-pos')]; if(!p) return;
-    if(p.tl){   // slanted frame given by three corners
+    if(p.tl&&p.br){   // frame given by all four corners: fitted with perspective so it matches exactly
+      var w4=Math.hypot(p.tr[0]-p.tl[0],p.tr[1]-p.tl[1]), h4=Math.hypot(p.bl[0]-p.tl[0],p.bl[1]-p.tl[1]);
+      var H=quadMatrix(w4,h4,[p.tl,p.tr,p.bl,p.br]);
+      el.style.left='0'; el.style.top='0'; el.style.width=w4+'px'; el.style.height=h4+'px';
+      el.style.transform='matrix3d('+H.join(',')+')';
+    } else if(p.tl){   // slanted frame given by three corners
       var w=Math.hypot(p.tr[0]-p.tl[0],p.tr[1]-p.tl[1]), h=Math.hypot(p.bl[0]-p.tl[0],p.bl[1]-p.tl[1]);
       var a=(p.tr[0]-p.tl[0])/w, b=(p.tr[1]-p.tl[1])/w, c=(p.bl[0]-p.tl[0])/h, d=(p.bl[1]-p.tl[1])/h;
       el.style.left='0'; el.style.top='0'; el.style.width=w+'px'; el.style.height=h+'px';
