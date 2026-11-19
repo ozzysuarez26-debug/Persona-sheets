@@ -103,3 +103,7 @@ details summary{cursor:pointer;font-weight:600;padding:2px 0}
 .tbl .r.cur{background:var(--accent);color:var(--on-accent);font-weight:700}
 .foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:.85rem}
 @media (max-width:700px){.three{grid-template-columns:1fr}.five{grid-template-columns:repeat(2,1fr)}.tbl{grid-template-columns:repeat(2,1fr)}}
+textarea[data-sk$=".d"] {
+  font-size: 12px;
+  line-height: 1.15;
+}
