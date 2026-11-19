@@ -53,9 +53,6 @@ window.SHEET_CONFIG = {
     // br = bottom-right. With all four corners the picture is fitted exactly, even if the frame is not a perfect parallelogram.
     visage: { tl: [803, 252], tr: [1037, 233], bl: [781, 552], br: [1033, 533] }
   },
-     
-    visage: { tl: [803, 252], tr: [1037, 233], bl: [781, 552] }
-  },
 
   /* ---------- the five stat bars (the + / - buttons and the number) ---------- */
   statBars: [
