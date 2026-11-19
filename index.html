@@ -63,7 +63,6 @@
     <div><label for="spBoost">SP boost % mutiplier</label><input id="spBoost" type="number" inputmode="numeric" min="0"></div>
     <div><label for="gym">Gym bonus (adds HP)</label><input id="gym" type="number" inputmode="numeric" min="0"></div>
     <div><label for="guts">Guts rank (adds HP)</label><select id="guts"></select></div>
-  
   </div>
   <p class="how" id="hpHow"></p>
   <p class="how" id="spHow" style="margin-top:4px"></p>
@@ -92,10 +91,11 @@
   </details>
 </div>
 
-<div class="foot"><span>This sheet saves automatically in this browser.</span><button class="b" type="button" id="reset">Reset sheet</button><button class="b" type="button" id="themeBtn">Theme</button></div>
-</div>
+<div class="foot"><span>Personas save automatically in this browser. Export a backup to transfer them between devices.</span><button class="b" type="button" id="reset">Reset sheet</button><button class="b" type="button" id="themeBtn">Theme</button></div>
 
 <script src="config.js"></script>
+<!-- Must run after config.js and before sheet.js so the selected persona's save key is active. -->
+<script src="persona-manager.js"></script>
 <script src="sheet.js"></script>
 </body>
 </html>

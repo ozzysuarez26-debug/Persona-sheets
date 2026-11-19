@@ -2,16 +2,26 @@ PERSONA CHARACTER SHEET - EDITABLE VERSION
 ==========================================
 
 HOW TO USE
-  Double-click index.html. It opens in your browser and works offline.
-  Keep all the files together in this folder.
-  Your sheet saves automatically in the browser you use.
+  Open index.html in your browser. Keep all files together in this folder.
+  The sheet saves automatically in this browser. Personas and saves are kept locally;
+  they are not automatically synchronized to other devices.
+
+MULTIPLE PERSONAS AND DEVICE TRANSFER
+  Use the Personas and transfer panel below the sheet to create, select, rename,
+  or delete personas. Each persona saves separately in this browser.
+  To move personas to another device, click Export personas and transfer the
+  downloaded persona-sheets-backup.json file to that device. Open the same page
+  there, click Import backup, and select the JSON file. This is a manual backup
+  and restore; it does not provide live cloud synchronization. Keep the backup
+  somewhere safe, since browser storage can be cleared.
 
 THE FILES
-  index.html       the page layout (what sits on the sheet, and the panels under it)
-  config.js        positions, colors of affinities, rules, EXP table   <- most edits go here
-  style.css        fonts, text sizes and colors                         <- look and feel
-  sheet.js         the logic (only needed to change HOW things calculate)
-  background.jpg   your sheet artwork
+  index.html         the page layout and script loading order
+  config.js          positions, affinity colors, rules and EXP table
+  style.css          fonts, text sizes and colors
+  sheet.js           sheet behavior and calculations
+  persona-manager.js multiple local personas and JSON backup/import
+  background.jpg     your sheet artwork
 
 COMMON CHANGES
   Move or resize a field on the sheet
@@ -51,8 +61,8 @@ COMMON CHANGES
       Delete its <div class="panel ctl"> ... </div> block in index.html.
 
   Start a second, separate character
-      Change storageKey in config.js (for example to "persona-sheet-alex"). Each key keeps its own saved data.
+      Use New persona in the Personas and transfer panel rather than changing storageKey.
 
 SHARING IT
-  Zip the folder and send it, or upload the folder to any free web host (GitHub Pages, Netlify, etc.).
-  Saved sheets stay in each person's own browser; they are not shared between people.
+  Zip the folder and send it, or upload the folder to a web host (GitHub Pages, Netlify, etc.).
+  Each visitor's saves remain in their own browser unless they export and transfer a backup.
