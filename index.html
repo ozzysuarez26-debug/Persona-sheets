@@ -4,46 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Persona Character Sheet</title>
-
-<!-- Fonts: these two are loaded from Google Fonts (needs internet).
-     To use a different font, change the link below AND the font names at the top of style.css.
-     Offline, the sheet falls back to Courier New automatically. -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
-
-<!-- THE SHEET. Each field is placed using the numbers in config.js (see the data-pos names). -->
 <div id="fit"><div id="sheet">
-
   <div class="f t-line" data-pos="arcana"><input data-k="arcana" aria-label="Arcana" autocomplete="off"></div>
   <div class="f sig" data-pos="signature"><input data-k="signature" aria-label="Signature" autocomplete="off"></div>
   <div class="f t-line" data-pos="persona"><input data-k="persona" aria-label="Persona name" autocomplete="off"></div>
-
   <div class="f hpbox" data-pos="hp"><input type="number" inputmode="numeric" id="hpCur" aria-label="Current HP"><span class="sl">/</span><span class="mx" id="hpMax"></span></div>
   <div class="f hpbox" data-pos="sp"><input type="number" inputmode="numeric" id="spCur" aria-label="Current SP"><span class="sl">/</span><span class="mx" id="spMax"></span></div>
-
   <div class="f t-box" data-pos="level"><input type="number" inputmode="numeric" id="lvIn" aria-label="Level" min="1"></div>
   <div class="f t-box" data-pos="exp"><input type="number" inputmode="numeric" id="expIn" aria-label="Current EXP" min="0"></div>
   <div class="f t-box" data-pos="expNext"><input id="expNext" aria-label="EXP needed for next level" readonly tabindex="-1"></div>
   <div class="f t-box" data-pos="ac"><input type="number" inputmode="numeric" data-k="ac" aria-label="Guard or AC"></div>
   <div class="f t-line" data-pos="player"><input data-k="player" aria-label="Player name" autocomplete="off"></div>
-
-  <div id="affs"></div>   <!-- affinity boxes are created from config.js -->
-  <div id="bars"></div>   <!-- stat bars are created from config.js -->
-
+  <div id="affs"></div>
+  <div id="bars"></div>
   <div class="f" id="visageWrap" data-pos="visage">
-    <label id="visage" title="Add or change your persona's picture"><span class="ph">Click to add a picture</span><input type="file" accept="image/*" aria-label="Upload persona picture"><button type="button" class="rm" id="visRm" aria-label="Remove picture">×</button></label>
+    <label id="visage" title="Add or change your persona's picture"><span class="ph">Click to add a picture</span><input type="file" accept="image/*" aria-label="Upload persona picture"><button type="button" class="rm" id="visRm" aria-label="Remove persona picture">×</button></label>
   </div>
-
-  <div id="skills" class="sk"></div>   <!-- skills table is created from config.js -->
-
+  <div id="skills" class="sk"></div>
 </div></div>
 
-<!-- CONTROLS UNDER THE SHEET. Delete any panel you do not want. -->
 <div class="panel ctl" aria-label="Controls">
   <h2>Level, HP and SP controls</h2>
   <div class="row">
@@ -72,30 +57,43 @@
 <div class="panel ctl">
   <details>
     <summary>Roles, social stats and notes</summary>
-    <div class="row" style="display:block;margin-top:12px">
-      <div class="three">
-        <div><label for="rp">Primary role</label><input id="rp" data-k="roles.p" style="width:100%" autocomplete="off"></div>
-        <div><label for="rs">Secondary role</label><input id="rs" data-k="roles.s" style="width:100%" autocomplete="off"></div>
-        <div><label for="rt">Tertiary role</label><input id="rt" data-k="roles.t" style="width:100%" autocomplete="off"></div>
-      </div>
-    </div>
+    <div class="row" style="display:block;margin-top:12px"><div class="three">
+      <div><label for="rp">Primary role</label><input id="rp" data-k="roles.p" style="width:100%" autocomplete="off"></div>
+      <div><label for="rs">Secondary role</label><input id="rs" data-k="roles.s" style="width:100%" autocomplete="off"></div>
+      <div><label for="rt">Tertiary role</label><input id="rt" data-k="roles.t" style="width:100%" autocomplete="off"></div>
+    </div></div>
     <div class="row" style="display:block"><span class="lab" id="socLab"></span><div class="five" id="social"></div></div>
     <div class="row" style="display:block"><label for="notes">Notes</label><textarea id="notes" data-k="notes" placeholder="Backstory, items, reminders"></textarea></div>
   </details>
 </div>
 
-<div class="panel ctl">
-  <details>
-    <summary>Total EXP needed for each level</summary>
-    <div class="tbl" id="tbl"></div>
-  </details>
-</div>
+<section class="panel ctl damage-panel" id="damageCalculator" aria-labelledby="damageTitle">
+  <h2 id="damageTitle">Damage Calculator</h2>
+  <p class="how damage-intro">Calculator fields follow the provided CSV. Since it gives no numeric rules for the conditions, damage uses Dice Damage + Bonus only.</p>
+  <div class="damage-grid">
+    <div><label for="damageDice">Dice Damage</label><input id="damageDice" type="number" min="0" step="1" value="60" inputmode="numeric"></div>
+    <div><label for="damageBonus">Bonus</label><input id="damageBonus" type="number" step="1" value="40" inputmode="numeric"></div>
+    <div class="damage-result"><span class="lab">Base Damage / Total Damage</span><output id="damageTotal" aria-live="polite">100</output></div>
+  </div>
+  <fieldset class="damage-options">
+    <legend>CSV condition fields</legend>
+    <label><input type="checkbox" data-damage-condition="critTech"> Crit/Tech</label>
+    <label><input type="checkbox" data-damage-condition="mercilessCrits"> Merciless Crits</label>
+    <label><input type="checkbox" data-damage-condition="tarukaja"> Tarukaja</label>
+    <label><input type="checkbox" data-damage-condition="rakukaja"> Rakukaja</label>
+    <label><input type="checkbox" data-damage-condition="tarunda"> Tarunda</label>
+    <label><input type="checkbox" data-damage-condition="rakunda"> Rakunda</label>
+    <label><input type="checkbox" data-damage-condition="weakness"> Weakness</label>
+  </fieldset>
+  <p class="damage-formula" id="damageFormula" role="status" aria-live="polite">Total Damage = Dice Damage (60) + Bonus (40) = 100</p>
+</section>
 
-<div class="foot"><span>Personas save automatically in this browser. Export a backup to transfer them between devices.</span><button class="b" type="button" id="reset">Reset sheet</button><button class="b" type="button" id="themeBtn">Theme</button></div>
-
+<div class="panel ctl"><details><summary>Total EXP needed for each level</summary><div class="tbl" id="tbl"></div></details></div>
+<div class="foot"><span>Personas save automatically in this browser. Export a backup to transfer them between devices.</span><button class="b" type="button" id="reset">Reset sheet</button><button class="b" type="button" id="themeBtn">Toggle light / dark</button></div>
 <script src="config.js"></script>
-<!-- Must run after config.js and before sheet.js so the selected persona's save key is active. -->
 <script src="persona-manager.js"></script>
 <script src="sheet.js"></script>
+<script src="damage-calculator.js"></script>
+</div>
 </body>
 </html>
