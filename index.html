@@ -29,6 +29,12 @@
   <div id="skills" class="sk"></div>
 </div></div>
 
+<div class="tabs" role="tablist" aria-label="Sheet tools">
+  <button type="button" class="tab" role="tab" id="tab-btn-character" aria-controls="tab-character" aria-selected="true">Character</button>
+  <button type="button" class="tab" role="tab" id="tab-btn-damage" aria-controls="tab-damage" aria-selected="false" tabindex="-1">Damage Calculator</button>
+</div>
+
+<div class="tabpanel" id="tab-character" role="tabpanel" aria-labelledby="tab-btn-character">
 <div class="panel ctl" aria-label="Controls">
   <h2>Level, HP and SP controls</h2>
   <div class="row">
@@ -67,6 +73,10 @@
   </details>
 </div>
 
+<div class="panel ctl"><details><summary>Total EXP needed for each level</summary><div class="tbl" id="tbl"></div></details></div>
+</div>
+
+<div class="tabpanel" id="tab-damage" role="tabpanel" aria-labelledby="tab-btn-damage" hidden>
 <section class="panel ctl damage-panel" id="damageCalculator" aria-labelledby="damageTitle">
   <h2 id="damageTitle">Damage Calculator</h2>
   <p class="how damage-intro">Enter your dice total and bonus, then tick the effects that apply. Totals round down.</p>
@@ -80,20 +90,21 @@
     <label><input type="checkbox" data-damage-condition="critTech"> Crit/Tech</label>
     <label><input type="checkbox" data-damage-condition="mercilessCrits"> Merciless Crits</label>
     <label><input type="checkbox" data-damage-condition="tarukaja"> Tarukaja</label>
-    <label><input type="checkbox" data-damage-condition="rakukaja"> Rakukaja</label>
     <label><input type="checkbox" data-damage-condition="tarunda"> Tarunda</label>
+    <label><input type="checkbox" data-damage-condition="rakukaja"> Rakukaja</label>
     <label><input type="checkbox" data-damage-condition="rakunda"> Rakunda</label>
     <label><input type="checkbox" data-damage-condition="weakness"> Weakness</label>
   </fieldset>
   <p class="damage-formula" id="damageFormula" role="status" aria-live="polite">Base Damage (100) → Modified Total (100)</p>
 </section>
+</div>
 
-<div class="panel ctl"><details><summary>Total EXP needed for each level</summary><div class="tbl" id="tbl"></div></details></div>
 <div class="foot"><span>Personas save automatically in this browser. Export a backup to transfer them between devices.</span><button class="b" type="button" id="reset">Reset sheet</button><button class="b" type="button" id="themeBtn">Toggle light / dark</button></div>
 <script src="config.js"></script>
 <script src="persona-manager.js"></script>
 <script src="sheet.js"></script>
 <script src="damage-calculator.js"></script>
+<script src="tabs.js"></script>
 </div>
 </body>
 </html>
