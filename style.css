@@ -27,9 +27,9 @@
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--bg:#0f1a18; --panel:#18262a; --raised:#213236; --ink:#e8f3f0; --muted:#9db3ad; --line:#2f4549; --accent:#d77b7b; --on-accent:#1a0d0d; --good:#5fcf9a; --hp:#f06a82; --sp:#6b9bf2; --exp:#e8b44a; color-scheme:dark;}
+  :root:not([data-theme="light"]){--bg:#0f1a18; --panel:#18262a; --raised:#213236; --ink:#e8f3f0; --muted:#9db3ad; --line:#2f4549; --accent:#d77b7b; --on-accent:#1a0d0d; --good:#5fcf9a; --hp:#f06a82; --sp:#6b9bf2; --exp:#e8b44a; color-scheme:dark}
 }
-:root[data-theme="dark"]{--bg:#0f1a18; --panel:#18262a; --raised:#213236; --ink:#e8f3f0; --muted:#9db3ad; --line:#2f4549; --accent:#d77b7b; --on-accent:#1a0d0d; --good:#5fcf9a; --hp:#f06a82; --sp:#6b9bf2; --exp:#e8b44a; color-scheme:dark;}
+:root[data-theme="dark"]{--bg:#0f1a18; --panel:#18262a; --raised:#213236; --ink:#e8f3f0; --muted:#9db3ad; --line:#2f4549; --accent:#d77b7b; --on-accent:#1a0d0d; --good:#5fcf9a; --hp:#f06a82; --sp:#6b9bf2; --exp:#e8b44a; color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:22px/1.3 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-text-size-adjust:100%}
@@ -85,6 +85,7 @@ label,.lab{display:block;font-size:.8rem;color:var(--muted);margin-bottom:3px}
 .ctl input,.ctl select,.ctl textarea{font:inherit;color:inherit;background:var(--raised);border:1px solid var(--line);border-radius:6px;padding:7px 9px;min-width:0}
 .ctl input[type=number]{width:130px}
 textarea{width:100%;min-height:100px;resize:vertical}
+#notes{font-size:13px}
 button.b{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);background:var(--raised);border-radius:6px;padding:6px 11px;min-height:36px}
 button.b:hover{border-color:var(--accent)}
 button.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
