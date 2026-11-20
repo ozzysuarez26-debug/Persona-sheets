@@ -44,7 +44,7 @@
   function calculate() {
     var dice = numberFrom(diceInput);
     var bonus = numberFrom(bonusInput);
-    var baseDamage = (dice * if (conditions.critTech && !conditions.mercilessCrits) 2, 1) + bonus;
+    var baseDamage = (dice * (conditions.critTech && !conditions.mercilessCrits ? 2 : 1)) + bonus;
     var total = applyModifiers(baseDamage);
 
     totalOutput.textContent = format(total);
