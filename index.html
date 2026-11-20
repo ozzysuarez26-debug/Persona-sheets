@@ -44,8 +44,8 @@
   <div class="row">
     <div><label for="baseHP">Base HP</label><input id="baseHP" type="number" inputmode="numeric" min="0"></div>
     <div><label for="baseSP">Base SP</label><input id="baseSP" type="number" inputmode="numeric" min="0"></div>
-    <div><label for="hpBoost">HP boost % mutiplier</label><input id="hpBoost" type="number" inputmode="numeric" min="0"></div>
-    <div><label for="spBoost">SP boost % mutiplier</label><input id="spBoost" type="number" inputmode="numeric" min="0"></div>
+    <div><label for="hpBoost">HP boost % multiplier</label><input id="hpBoost" type="number" inputmode="numeric" min="0"></div>
+    <div><label for="spBoost">SP boost % multiplier</label><input id="spBoost" type="number" inputmode="numeric" min="0"></div>
     <div><label for="gym">Gym bonus (adds HP)</label><input id="gym" type="number" inputmode="numeric" min="0"></div>
     <div><label for="guts">Guts rank (adds HP)</label><select id="guts"></select></div>
   </div>
@@ -69,14 +69,14 @@
 
 <section class="panel ctl damage-panel" id="damageCalculator" aria-labelledby="damageTitle">
   <h2 id="damageTitle">Damage Calculator</h2>
-  <p class="how damage-intro">Calculator fields follow the provided CSV. Since it gives no numeric rules for the conditions, damage uses Dice Damage + Bonus only.</p>
+  <p class="how damage-intro">Enter your dice total and bonus, then tick the effects that apply. Totals follow the Persona Calculator spreadsheet and round down.</p>
   <div class="damage-grid">
     <div><label for="damageDice">Dice Damage</label><input id="damageDice" type="number" min="0" step="1" value="60" inputmode="numeric"></div>
     <div><label for="damageBonus">Bonus</label><input id="damageBonus" type="number" step="1" value="40" inputmode="numeric"></div>
     <div class="damage-result"><span class="lab">Base Damage / Total Damage</span><output id="damageTotal" aria-live="polite">100</output></div>
   </div>
   <fieldset class="damage-options">
-    <legend>CSV condition fields</legend>
+    <legend>Conditions</legend>
     <label><input type="checkbox" data-damage-condition="critTech"> Crit/Tech</label>
     <label><input type="checkbox" data-damage-condition="mercilessCrits"> Merciless Crits</label>
     <label><input type="checkbox" data-damage-condition="tarukaja"> Tarukaja</label>
@@ -85,7 +85,7 @@
     <label><input type="checkbox" data-damage-condition="rakunda"> Rakunda</label>
     <label><input type="checkbox" data-damage-condition="weakness"> Weakness</label>
   </fieldset>
-  <p class="damage-formula" id="damageFormula" role="status" aria-live="polite">Total Damage = Dice Damage (60) + Bonus (40) = 100</p>
+  <p class="damage-formula" id="damageFormula" role="status" aria-live="polite">Base Damage (100) → Modified Total (100)</p>
 </section>
 
 <div class="panel ctl"><details><summary>Total EXP needed for each level</summary><div class="tbl" id="tbl"></div></details></div>
