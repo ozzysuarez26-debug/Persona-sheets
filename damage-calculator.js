@@ -104,3 +104,37 @@
 
   calculate();
 })();
+
+/* Replace preset HP/SP +/- buttons with fields for entering exact damage amounts. */
+(function () {
+  'use strict';
+
+  [['hp', 'HP'], ['sp', 'SP']].forEach(function (resource) {
+    var kind = resource[0];
+    var label = resource[1];
+    var oldBox = document.querySelector('[data-v="' + kind + '"]');
+    if (!oldBox) return;
+
+    // Clone the container without its old click listener, which handled fixed increments.
+    var box = oldBox.cloneNode(false);
+    oldBox.parentNode.replaceChild(box, oldBox);
+
+    var labelElement = box.parentNode.querySelector('.lab');
+    if (labelElement) labelElement.textContent = label + ' damage';
+
+    box.innerHTML =
+      '<input class="b resource-damage" type="number" min="0" step="1" inputmode="numeric" placeholder="Amount" aria-label="' + label + ' damage amount">' +
+      '<button class="b" type="button">Apply damage</button>';
+
+    box.querySelector('button').addEventListener('click', function () {
+      var amountInput = box.querySelector('input');
+      var amount = Number(amountInput.value);
+      var current = document.getElementById(kind + 'Cur');
+      if (!current || !Number.isFinite(amount) || amount <= 0) return;
+
+      current.value = Math.max(0, Number(current.value) - amount);
+      current.dispatchEvent(new Event('input', { bubbles: true }));
+      amountInput.value = '';
+    });
+  });
+})();
