@@ -6,6 +6,7 @@
   var bonusInput = document.getElementById('damageBonus');
   var totalOutput = document.getElementById('damageTotal');
   var formula = document.getElementById('damageFormula');
+  var baseOutput = document.getElementById('damageBase');
 
   if (!diceInput || !bonusInput || !totalOutput || !formula) return;
 
@@ -22,7 +23,7 @@
   var opposingConditions = {
     tarukaja: 'tarunda',
     tarunda: 'tarukaja',
-    rakukaja: 'rakunda',
+    rakukaja: 'tarunda',
     rakunda: 'rakukaja'
   };
 
@@ -38,18 +39,23 @@
   function applyModifiers(baseDamage) {
     var damage = baseDamage;
 
-    // TODO: Add your damage rules here.
-    // Example:
-     if (conditions.weakness && !conditions.mercilessCrits) damage *= 2;
-     if (conditions.mercilessCrits) damage *= 3;
-     if (conditions.tarukaja && !conditions.rakunda) damage *= 1.5;
-     if (conditions.rakunda && !conditions.tarukaja) damage *= 1.5;
-     if (conditions.rakunda && conditions.tarukaja) damage *= 2;
-     if (conditions.rakukaja && !conditions.tarunda) damage *= 0.7;
-     if (conditions.tarunda && !conditions.rakukaja) damage *= 0.7;
-     if (conditions.tarunda && conditions.rakukaja) damage *= 0.4;
+    if (conditions.weakness && !conditions.mercilessCrits) damage *= 2;
+    if (conditions.mercilessCrits) damage *= 3;
+    if (conditions.tarukaja && !conditions.rakunda) damage *= 1.5;
+    if (conditions.rakunda && !conditions.tarukaja) damage *= 1.5;
+    if (conditions.rakunda && conditions.tarukaja) damage *= 2;
+    if (conditions.rakukaja && !conditions.tarunda) damage *= 0.7;
+    if (conditions.tarunda && !conditions.rakukaja) damage *= 0.7;
+    if (conditions.tarunda && conditions.rakukaja) damage *= 0.4;
 
     return damage;
+  }
+
+  function updateConditionLabels() {
+    document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
+      var label = checkbox.closest('label');
+      if (label) label.classList.toggle('is-active', checkbox.checked);
+    });
   }
 
   function calculate() {
@@ -59,9 +65,15 @@
     var total = applyModifiers(baseDamage);
 
     totalOutput.textContent = format(total);
-    formula.textContent =
-      'Base Damage (' + format(baseDamage) +
-      ') → Modified Total (' + format(total) + ')';
+    if (baseOutput) baseOutput.textContent = format(baseDamage);
+
+    var calculation = 'Dice Damage ' + format(dice);
+    if (conditions.critTech && !conditions.mercilessCrits) calculation += ' × 2 (Crit/Tech)';
+    calculation += ' + Bonus ' + format(bonus) + ' = Base Damage ' + format(baseDamage);
+    if (total !== baseDamage) calculation += ' → Modified Total ' + format(total);
+    formula.textContent = calculation;
+
+    updateConditionLabels();
   }
 
   document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
@@ -73,9 +85,7 @@
         var opposite = opposingConditions[condition];
         conditions[opposite] = false;
         document.querySelectorAll('[data-damage-condition]').forEach(function (otherCheckbox) {
-          if (otherCheckbox.dataset.damageCondition === opposite) {
-            otherCheckbox.checked = false;
-          }
+          if (otherCheckbox.dataset.damageCondition === opposite) otherCheckbox.checked = false;
         });
       }
 
