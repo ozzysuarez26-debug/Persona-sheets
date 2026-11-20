@@ -23,7 +23,7 @@
   var opposingConditions = {
     tarukaja: 'tarunda',
     tarunda: 'tarukaja',
-    rakukaja: 'rakunda',
+    rakukaja: 'tarunda',
     rakunda: 'rakukaja'
   };
 
@@ -53,8 +53,8 @@
 
   function updateConditionLabels() {
     document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
-      var option = checkbox.closest('.damage-option');
-      if (option) option.classList.toggle('is-active', checkbox.checked);
+      var label = checkbox.closest('label');
+      if (label) label.classList.toggle('is-active', checkbox.checked);
     });
   }
 
@@ -66,10 +66,12 @@
 
     totalOutput.textContent = format(total);
     if (baseOutput) baseOutput.textContent = format(baseDamage);
-    formula.textContent = 'Dice ' + format(dice) + '  ×  2  +  Bonus ' + format(bonus) + '  =  ' + format(baseDamage);
 
-    if (conditions.critTech) formula.textContent = 'Critical / Tech: Dice ' + format(dice) + '  ×  2  +  Bonus ' + format(bonus) + '  =  ' + format(baseDamage);
-    if (total !== baseDamage) formula.textContent += '  →  Modified total ' + format(total);
+    var calculation = 'Dice Damage ' + format(dice);
+    if (conditions.critTech && !conditions.mercilessCrits) calculation += ' × 2 (Crit/Tech)';
+    calculation += ' + Bonus ' + format(bonus) + ' = Base Damage ' + format(baseDamage);
+    if (total !== baseDamage) calculation += ' → Modified Total ' + format(total);
+    formula.textContent = calculation;
 
     updateConditionLabels();
   }
@@ -83,9 +85,7 @@
         var opposite = opposingConditions[condition];
         conditions[opposite] = false;
         document.querySelectorAll('[data-damage-condition]').forEach(function (otherCheckbox) {
-          if (otherCheckbox.dataset.damageCondition === opposite) {
-            otherCheckbox.checked = false;
-          }
+          if (otherCheckbox.dataset.damageCondition === opposite) otherCheckbox.checked = false;
         });
       }
 
