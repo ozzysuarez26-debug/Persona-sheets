@@ -33,9 +33,14 @@
 
     // TODO: Add your damage rules here.
     // Example:
-     if (conditions.weakness) damage *= 2;
+     if (conditions.weakness && !conditions.mercilessCrits) damage *= 2;
+     if (conditions.mercilessCrits) damage *= 3;
      if (conditions.tarukaja && !conditions.rakunda) damage *= 1.5;
-     if (conditions.rakunda && !conditions.tarukaja) damage *= 0.5;
+     if (conditions.rakunda && !conditions.tarukaja) damage *= 1.5;
+     if (conditions.rakunda && conditions.tarukaja) damage *= 2;
+     if (conditions.rakukaja && !conditions.tarunda) damage *= 0.7;
+     if (conditions.tarunda && !conditions.rakukaja) damage *= 0.7;
+     if (conditions.tarunda && conditions.rakukaja) damage *= 0.4;
     
 
     return damage;
