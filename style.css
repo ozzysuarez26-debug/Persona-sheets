@@ -84,7 +84,7 @@ body.debug .f{outline:1px dashed rgba(255,0,0,.8);background:rgba(255,0,0,.08)}
 label,.lab{display:block;font-size:.8rem;color:var(--muted);margin-bottom:3px}
 .ctl input,.ctl select,.ctl textarea{font:inherit;color:inherit;background:var(--raised);border:1px solid var(--line);border-radius:6px;padding:7px 9px;min-width:0}
 .ctl input[type=number]{width:130px}
-textarea{width:400%;min-height:80px;resize:vertical}
+textarea{width:100%;min-height:100px;resize:vertical}
 button.b{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);background:var(--raised);border-radius:6px;padding:6px 11px;min-height:36px}
 button.b:hover{border-color:var(--accent)}
 button.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
@@ -95,7 +95,7 @@ button.pri{background:var(--accent);border-color:var(--accent);color:var(--on-ac
 .hp-t{color:var(--hp);font-weight:700}.sp-t{color:var(--sp);font-weight:700}
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .five{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.sc b{display:block;margin-bottom:4px;font-weight:600;font-size:.9rem}
+.sc b{display:block;margin-bottom:4px;font-weight:600;font-size:.5rem}
 .sc input{width:100%}
 details summary{cursor:pointer;font-weight:600;padding:2px 0}
 .tbl{display:grid;grid-template-columns:repeat(5,1fr);gap:0 18px;margin-top:10px}
