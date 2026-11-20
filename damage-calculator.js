@@ -6,7 +6,6 @@
   var bonusInput = document.getElementById('damageBonus');
   var totalOutput = document.getElementById('damageTotal');
   var formula = document.getElementById('damageFormula');
-  var baseOutput = document.getElementById('damageBase');
 
   if (!diceInput || !bonusInput || !totalOutput || !formula) return;
 
@@ -23,7 +22,7 @@
   var opposingConditions = {
     tarukaja: 'tarunda',
     tarunda: 'tarukaja',
-    rakukaja: 'tarunda',
+    rakukaja: 'rakunda',
     rakunda: 'rakukaja'
   };
 
@@ -36,44 +35,49 @@
     return Number.isInteger(value) ? String(value) : value.toFixed(2);
   }
 
-  function applyModifiers(baseDamage) {
-    var damage = baseDamage;
+  // Tarukaja / Tarunda (attack) and Rakukaja / Rakunda (defense) combine as ONE multiplier,
+  // exactly as in the spreadsheet's IFS(...). They are not multiplied separately, because
+  // some pairs cancel out (Tarukaja + Rakukaja = x1) and others are not a plain product
+  // (Tarukaja + Rakunda = x2, not x2.25; Tarunda + Rakukaja = x0.4, not x0.49).
+  function buffMultiplier() {
+    var tarukaja = conditions.tarukaja, tarunda = conditions.tarunda;
+    var rakukaja = conditions.rakukaja, rakunda = conditions.rakunda;
 
-    if (conditions.weakness && !conditions.mercilessCrits) damage *= 2;
-    if (conditions.mercilessCrits) damage *= 3;
-    if (conditions.tarukaja && !conditions.rakunda) damage *= 1.5;
-    if (conditions.rakunda && !conditions.tarukaja) damage *= 1.5;
-    if (conditions.rakunda && conditions.tarukaja) damage *= 2;
-    if (conditions.rakukaja && !conditions.tarunda) damage *= 0.7;
-    if (conditions.tarunda && !conditions.rakukaja) damage *= 0.7;
-    if (conditions.tarunda && conditions.rakukaja) damage *= 0.4;
-
-    return damage;
+    if (tarukaja && rakunda) return 2;
+    if (tarukaja && !rakunda && !tarunda && !rakukaja) return 1.5;
+    if (rakunda && !tarukaja && !rakukaja && !tarunda) return 1.5;
+    if (rakukaja && tarukaja) return 1;
+    if (tarunda && rakukaja) return 0.4;
+    if (tarunda && !rakukaja && !tarukaja && !rakunda) return 0.7;
+    if (rakukaja && !tarunda) return 0.7;
+    if (rakunda && tarunda) return 1;
+    return 1;
   }
 
-  function updateConditionLabels() {
-    document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
-      var label = checkbox.closest('label');
-      if (label) label.classList.toggle('is-active', checkbox.checked);
-    });
+  // Same order as the spreadsheet:
+  //   ( dice x critMultiplier + bonus ) x merciless x weakness x buffs, rounded DOWN.
+  function totalDamage(dice, bonus) {
+    // Crit/Tech doubles the dice only when it is not replaced by Merciless Crits or Weakness.
+    var critMultiplier = (conditions.critTech && !conditions.mercilessCrits && !conditions.weakness) ? 2 : 1;
+    var merciless = conditions.mercilessCrits ? 3 : 1;
+    var weakness = (conditions.weakness && !conditions.mercilessCrits) ? 2 : 1;
+
+    var damage = (dice * critMultiplier + bonus) * merciless * weakness * buffMultiplier();
+
+    // Round down like the spreadsheet. The tiny extra stops decimal error (e.g. 69.99999999) from losing a point.
+    return Math.floor(damage + 1e-9);
   }
 
   function calculate() {
     var dice = numberFrom(diceInput);
     var bonus = numberFrom(bonusInput);
-    var baseDamage = (dice * (conditions.critTech && !conditions.mercilessCrits ? 2 : 1)) + bonus;
-    var total = applyModifiers(baseDamage);
+    var baseDamage = Math.floor(dice + bonus);      // the spreadsheet's "Base Damage" (no multipliers)
+    var total = totalDamage(dice, bonus);
 
     totalOutput.textContent = format(total);
-    if (baseOutput) baseOutput.textContent = format(baseDamage);
-
-    var calculation = 'Dice Damage ' + format(dice);
-    if (conditions.critTech && !conditions.mercilessCrits) calculation += ' × 2 (Crit/Tech)';
-    calculation += ' + Bonus ' + format(bonus) + ' = Base Damage ' + format(baseDamage);
-    if (total !== baseDamage) calculation += ' → Modified Total ' + format(total);
-    formula.textContent = calculation;
-
-    updateConditionLabels();
+    formula.textContent =
+      'Base Damage (' + format(baseDamage) +
+      ') → Modified Total (' + format(total) + ')';
   }
 
   document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
@@ -85,7 +89,9 @@
         var opposite = opposingConditions[condition];
         conditions[opposite] = false;
         document.querySelectorAll('[data-damage-condition]').forEach(function (otherCheckbox) {
-          if (otherCheckbox.dataset.damageCondition === opposite) otherCheckbox.checked = false;
+          if (otherCheckbox.dataset.damageCondition === opposite) {
+            otherCheckbox.checked = false;
+          }
         });
       }
 
