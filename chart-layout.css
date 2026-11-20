@@ -1,0 +1,11 @@
+/* Fill each chart column from top to bottom before moving to the next. */
+#tbl {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(10, auto);
+}
+
+@media (max-width: 700px) {
+  #tbl {
+    grid-template-rows: repeat(25, auto);
+  }
+}
