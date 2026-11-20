@@ -19,6 +19,13 @@
     weakness: false
   };
 
+  var opposingConditions = {
+    tarukaja: 'tarunda',
+    tarunda: 'tarukaja',
+    rakukaja: 'rakunda',
+    rakunda: 'rakukaja'
+  };
+
   function numberFrom(input) {
     var value = Number(input.value);
     return Number.isFinite(value) ? value : 0;
@@ -41,7 +48,6 @@
      if (conditions.rakukaja && !conditions.tarunda) damage *= 0.7;
      if (conditions.tarunda && !conditions.rakukaja) damage *= 0.7;
      if (conditions.tarunda && conditions.rakukaja) damage *= 0.4;
-    
 
     return damage;
   }
@@ -60,7 +66,19 @@
 
   document.querySelectorAll('[data-damage-condition]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
-      conditions[checkbox.dataset.damageCondition] = checkbox.checked;
+      var condition = checkbox.dataset.damageCondition;
+      conditions[condition] = checkbox.checked;
+
+      if (checkbox.checked && opposingConditions[condition]) {
+        var opposite = opposingConditions[condition];
+        conditions[opposite] = false;
+        document.querySelectorAll('[data-damage-condition]').forEach(function (otherCheckbox) {
+          if (otherCheckbox.dataset.damageCondition === opposite) {
+            otherCheckbox.checked = false;
+          }
+        });
+      }
+
       calculate();
     });
   });
