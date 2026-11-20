@@ -105,7 +105,7 @@
   calculate();
 })();
 
-/* Replace preset HP/SP +/- buttons with fields for entering exact damage amounts. */
+/* Enter a positive amount to apply damage, or a negative amount to heal. */
 (function () {
   'use strict';
 
@@ -120,19 +120,21 @@
     oldBox.parentNode.replaceChild(box, oldBox);
 
     var labelElement = box.parentNode.querySelector('.lab');
-    if (labelElement) labelElement.textContent = label + ' damage';
+    if (labelElement) labelElement.textContent = label + ' damage / healing';
 
     box.innerHTML =
-      '<input class="b resource-damage" type="number" min="0" step="1" inputmode="numeric" placeholder="Amount" aria-label="' + label + ' damage amount">' +
-      '<button class="b" type="button">Apply damage</button>';
+      '<input class="b resource-damage" type="number" step="1" inputmode="numeric" placeholder="Damage (+) / heal (-)" aria-label="' + label + ' damage or healing amount">' +
+      '<button class="b" type="button">Apply</button>';
 
     box.querySelector('button').addEventListener('click', function () {
       var amountInput = box.querySelector('input');
       var amount = Number(amountInput.value);
       var current = document.getElementById(kind + 'Cur');
-      if (!current || !Number.isFinite(amount) || amount <= 0) return;
+      if (!current || !Number.isFinite(amount) || amount === 0) return;
 
-      current.value = Math.max(0, Number(current.value) - amount);
+      // Positive values reduce HP/SP; negative values restore it. The sheet's input
+      // handler clamps the result between zero and the calculated maximum.
+      current.value = Number(current.value) - amount;
       current.dispatchEvent(new Event('input', { bubbles: true }));
       amountInput.value = '';
     });
